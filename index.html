@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sunlit Vows, By the Sea — Ronald &amp; Erika</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts (Added Pinyon Script for Elegant Couple Names) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- AOS & GSAP -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --gold-primary: #B88A44;
+      --gold-deep: #7E561D;
+      --pearl-bg: #FAF7F2;
+      --sand-bg: #F3ECE1;
+      --espresso-text: #2C221A;
+      --muted-brown: #6E5D4F;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--pearl-bg);
+      color: var(--espresso-text);
+      overflow-x: hidden;
+    }
+
+    .font-editorial { font-family: 'Bodoni Moda', serif; }
+    .font-royal { font-family: 'Cinzel', serif; }
+    .font-serif-soft { font-family: 'Cormorant Garamond', serif; }
+    .font-script-name { font-family: 'Pinyon Script', cursive; }
+
+    /* High-Contrast Elegant Couple Name Style */
+    .couple-name-script {
+      font-family: 'Pinyon Script', cursive;
+      color: #7E561D;
+      text-shadow: 0 2px 16px rgba(255, 252, 245, 0.96), 0 1px 2px rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.02em;
+    }
+
+    .couple-name-desktop {
+      font-family: 'Pinyon Script', cursive;
+      background: linear-gradient(115deg, #6F4A16 10%, #B88A44 45%, #7E561D 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(255, 250, 240, 0.85));
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F3ECE1; }
+    ::-webkit-scrollbar-thumb { background: #C59B56; border-radius: 10px; }
+
+    /* Cover Curtain Transition */
+    #cover-overlay {
+      transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.9s ease;
+    }
+    #cover-overlay.is-opened {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Subtle Ken Burns Motion */
+    @keyframes kenBurnsSlow {
+      0% { transform: scale(1.01) translate(0, 0); }
+      50% { transform: scale(1.07) translate(-0.7%, -0.7%); }
+      100% { transform: scale(1.01) translate(0, 0); }
+    }
+    .animate-ken-burns {
+      animation: kenBurnsSlow 22s ease-in-out infinite;
+    }
+
+    /* Bright Pearl & Champagne Glass Card */
+    .glass-pearl-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 245, 237, 0.95) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(184, 138, 68, 0.28);
+      box-shadow: 0 16px 38px -14px rgba(110, 84, 48, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .glass-pearl-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px -12px rgba(110, 84, 48, 0.2);
+    }
+
+    .glass-pearl-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+      transform: skewX(-25deg);
+      animation: autoSheen 7s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes autoSheen {
+      0%, 60% { left: -150%; }
+      100% { left: 180%; }
+    }
+
+    /* Gentle Floating Portrait */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: floatSlow 5.5s ease-in-out infinite;
+    }
+
+    /* Soft Gold Pulse Button */
+    @keyframes pulseRingGold {
+      0% { box-shadow: 0 0 0 0 rgba(184, 138, 68, 0.45); }
+      70% { box-shadow: 0 0 0 14px rgba(184, 138, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(184, 138, 68, 0); }
+    }
+    .btn-pulse-gold {
+      animation: pulseRingGold 2.4s infinite;
+    }
+
+    /* Spinning Music Disc */
+    @keyframes spinDisc {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-disc { animation: spinDisc 9s linear infinite; }
+    .paused-disc { animation-play-state: paused; }
+
+    /* Sunlit Ocean Waves */
+    .waves {
+      position: relative;
+      width: 100%;
+      height: 44px;
+      margin-bottom: -2px;
+    }
+    .parallax > use {
+      animation: move-forever 16s cubic-bezier(.55,.5,.45,.5) infinite;
+    }
+    .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+    .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+    .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+    .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 18s; }
+    @keyframes move-forever {
+      0% { transform: translate3d(-90px,0,0); }
+      100% { transform: translate3d(85px,0,0); }
+    }
+
+    /* Gallery Page Switcher Animation */
+    @keyframes galleryPageEnter {
+      0% { opacity: 0; transform: translateY(14px) scale(0.985); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .gallery-page-enter {
+      animation: galleryPageEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Polaroid Tilt Card */
+    .polaroid-card {
+      background: #FFFFFF;
+      padding: 8px 8px 22px 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(184, 138, 68, 0.25);
+      box-shadow: 0 12px 26px -10px rgba(44, 34, 26, 0.16);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+    }
+    .polaroid-card:hover {
+      transform: rotate(0deg) translateY(-4px) scale(1.02) !important;
+      box-shadow: 0 18px 34px -10px rgba(126, 86, 29, 0.25);
+    }
+
+    /* Bottom Sheet Modal */
+    #gift-sheet { transition: opacity 0.35s ease, visibility 0.35s ease; }
+    #gift-sheet-panel { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+    #gift-sheet.hidden-sheet { opacity: 0; visibility: hidden; pointer-events: none; }
+    #gift-sheet.hidden-sheet #gift-sheet-panel { transform: translateY(100%); }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-stone-900">
+
+  <!-- Background Audio with Reliable Fallback -->
+  <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
+    <source src="https://actions.google.com/sounds/v1/ambiences/warm_evening_breeze.ogg" type="audio/ogg">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ==================== MAIN WRAPPER ==================== -->
+  <div class="min-h-screen w-full flex justify-center lg:justify-between bg-[#F3ECE1]">
+
+    <!-- ==================== LEFT PANEL (DESKTOP) ==================== -->
+    <aside class="hidden lg:flex lg:w-[calc(100%-460px)] xl:w-[calc(100%-480px)] fixed inset-y-0 left-0 flex-col justify-between p-14 text-[#2C221A] overflow-hidden bg-[#F5EFE6]">
+      <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1600"
+           alt="Ronald Jeremy & Erika Tasya"
+           class="animate-ken-burns absolute inset-0 w-full h-full object-cover opacity-80">
+
+      <canvas id="desktop-sparkle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-[1]"></canvas>
+      <div class="absolute inset-0 bg-gradient-to-tr from-[#FAF7F2]/95 via-[#FAF7F2]/55 to-white/15 z-[2]"></div>
+
+      <div class="relative z-10 flex items-center gap-3">
+        <span class="w-10 h-[1px] bg-[#B88A44]"></span>
+        <span class="font-royal text-xs tracking-[0.35em] text-[#7E561D] uppercase font-semibold">
+          Sunlit Vows, By the Sea
+        </span>
+      </div>
+
+      <div class="relative z-10 max-w-xl">
+        <p class="font-serif-soft italic text-2xl text-[#6E5D4F] mb-2">
+          The Wedding Celebration of
+        </p>
+        <h1 class="couple-name-desktop text-7xl xl:text-8xl leading-[1.05] mb-4 py-1">
+          Ronald <span class="text-5xl xl:text-6xl text-[#B88A44]">&amp;</span> Erika
+        </h1>
+        <p class="font-royal text-xs tracking-[0.3em] text-[#4A3B2C] uppercase font-semibold">
+          Saturday, 26 February 2028 &bull; Uluwatu, Bali
+        </p>
+      </div>
+    </aside>
+
+    <!-- ==================== RIGHT PANEL: MOBILE INVITATION VIEWPORT ==================== -->
+    <div id="mobile-viewport" class="relative w-full lg:w-[460px] xl:w-[480px] lg:ml-auto min-h-screen bg-[#FAF7F2] shadow-[0_0_50px_rgba(110,84,48,0.16)] overflow-x-hidden">
+
+      <!-- FIXED AMBIENT SUNLIT BACKGROUND -->
+      <div class="fixed inset-y-0 right-0 w-full lg:w-[460px] xl:w-[480px] pointer-events-none z-0 overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1200"
+             alt="Ambient Background"
+             class="animate-ken-burns w-full h-full object-cover opacity-15">
+        <canvas id="ambient-sparkle-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/85 via-[#FAF7F2]/80 to-[#F3ECE1]/95"></div>
+      </div>
+
+      <!-- ==================== COVER SCREEN ==================== -->
+      <section id="cover-overlay" class="fixed inset-y-0 right-0 w-full lg:w-[460px] xl:w-[480px] z-50 flex flex-col justify-between items-center text-center px-7 py-12 bg-[#FAF7F2] text-[#2C221A] overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1200"
+             alt="Cover Photo"
+             class="animate-ken-burns absolute inset-0 w-full h-full object-cover opacity-55">
+        <canvas id="cover-sparkle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-[1]"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/45 to-[#FAF7F2]/95 z-[2]"></div>
+
+        <div class="relative z-10 mt-2 gs-cover-item">
+          <p class="font-royal text-[10px] tracking-[0.35em] text-[#7E561D] uppercase font-semibold mb-2">
+            Sunlit Vows, By the Sea
+          </p>
+          <div class="w-14 h-[1px] bg-gradient-to-r from-transparent via-[#B88A44] to-transparent mx-auto"></div>
+        </div>
+
+        <div class="relative z-10 my-auto gs-cover-item">
+          <p class="font-serif-soft italic text-xl text-[#5C4B3C] mb-1">The Wedding of</p>
+          <h2 class="couple-name-script text-5xl sm:text-7xl leading-[1.05] py-1">
+            Ronald Jeremy
+          </h2>
+          <p class="font-serif-soft italic text-2xl text-[#8E6528] my-0.5 font-semibold">&amp;</p>
+          <h2 class="couple-name-script text-5xl sm:text-7xl leading-[1.05] py-1">
+            Erika Tasya
+          </h2>
+          <p class="font-royal text-[11px] tracking-[0.28em] text-[#4A3B2C] font-semibold mt-4 bg-white/75 backdrop-blur-xs px-4 py-1 rounded-full inline-block border border-[#B88A44]/25">
+            26 . 02 . 2028
+          </p>
+        </div>
+
+        <div class="relative z-10 w-full gs-cover-item">
+          <div class="bg-white/85 backdrop-blur-md border border-[#B88A44]/35 rounded-2xl px-5 py-4 mb-6 shadow-lg">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-[#6E5D4F] mb-1">Dear Honored Guest</p>
+            <p id="guest-name" class="font-serif-soft text-xl font-semibold text-[#2C221A]">
+              Mr. Michael Rulando
+            </p>
+          </div>
+
+          <button id="btn-open"
+                  class="btn-pulse-gold w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#B88A44] via-[#CFA25A] to-[#B88A44] text-white font-royal font-bold text-xs tracking-[0.22em] uppercase py-4 px-6 rounded-full shadow-xl hover:brightness-105 active:scale-95 transition cursor-pointer">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-100"></i>
+            <span>Open Invitation</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== FLOATING MUSIC BUTTON ==================== -->
+      <button id="music-btn" aria-label="Toggle Music"
+              class="hidden fixed top-5 right-5 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#B88A44] text-[#7E561D] flex items-center justify-center shadow-md cursor-pointer hover:bg-[#FAF7F2] transition">
+        <i data-lucide="disc-3" id="music-icon" class="w-5 h-5 animate-spin-disc"></i>
+      </button>
+
+      <!-- ==================== FLOATING BOTTOM NAVIGATION ==================== -->
+      <nav id="floating-nav" class="hidden fixed bottom-4 right-1/2 translate-x-1/2 lg:right-[230px] xl:right-[240px] z-40 w-[90%] max-w-[400px] bg-white/92 backdrop-blur-xl border border-[#B88A44]/35 rounded-full px-3 py-2 shadow-xl">
+        <ul class="flex justify-around items-center text-[10px] font-royal tracking-wider text-[#6E5D4F] font-semibold">
+          <li>
+            <a href="#sec-hero" class="flex flex-col items-center gap-0.5 py-1 px-2 hover:text-[#B88A44] transition">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#B88A44]"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec-couple" class="flex flex-col items-center gap-0.5 py-1 px-2 hover:text-[#B88A44] transition">
+              <i data-lucide="heart" class="w-4 h-4 text-[#B88A44]"></i>
+              <span>Couple</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec-event" class="flex flex-col items-center gap-0.5 py-1 px-2 hover:text-[#B88A44] transition">
+              <i data-lucide="calendar" class="w-4 h-4 text-[#B88A44]"></i>
+              <span>Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec-gallery" class="flex flex-col items-center gap-0.5 py-1 px-2 hover:text-[#B88A44] transition">
+              <i data-lucide="image" class="w-4 h-4 text-[#B88A44]"></i>
+              <span>Gallery</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec-rsvp" class="flex flex-col items-center gap-0.5 py-1 px-2 hover:text-[#B88A44] transition">
+              <i data-lucide="message-circle" class="w-4 h-4 text-[#B88A44]"></i>
+              <span>Wishes</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- ==================== 1. HERO SECTION ==================== -->
+      <section id="sec-hero" class="relative z-10 min-h-[95vh] flex flex-col justify-between items-center text-center px-6 pt-14 pb-0 text-[#2C221A] overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1200"
+             alt="Hero Couple"
+             class="animate-ken-burns absolute inset-0 w-full h-full object-cover opacity-55">
+
+        <canvas id="hero-sparkle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-[1]"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF7F2]/35 to-[#FAF7F2]/95 z-[2]"></div>
+
+        <div class="relative z-10" data-aos="fade-down">
+          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-[#B88A44]/40 font-royal text-[10px] tracking-[0.3em] text-[#7E561D] font-semibold uppercase shadow-sm">
+            <i data-lucide="sparkles" class="w-3 h-3 text-[#B88A44]"></i>
+            Sunlit Vows, By the Sea
+          </span>
+        </div>
+
+        <div class="relative z-10 my-auto py-8" data-aos="zoom-in" data-aos-duration="1100">
+          <p class="font-serif-soft italic text-xl text-[#5C4B3C] mb-1">Save The Date</p>
+          <h2 class="couple-name-script text-5xl sm:text-6xl leading-[1.06] py-1">
+            Ronald Jeremy
+          </h2>
+			<p class="font-serif-soft italic text-2xl text-[#8E6528] my-0.5 font-semibold">&amp;</p>
+		  <h2 class="couple-name-script text-6xl sm:text-5xl leading-[1.06] py-1">
+            Erika Tasya
+          </h2>
+          <p class="font-royal text-xs tracking-[0.24em] text-[#4A3B2C] font-semibold mt-3 mb-7 bg-white/75 backdrop-blur-xs px-4 py-1.5 rounded-full inline-block border border-[#B88A44]/25">
+            SATURDAY, 26 FEBRUARY 2028
+          </p>
+
+          <!-- Countdown -->
+          <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto bg-white/90 backdrop-blur-md border border-[#B88A44]/40 rounded-2xl p-3.5 text-[#2C221A] shadow-lg">
+            <div>
+              <span id="cd-days" class="block font-editorial text-2xl text-[#7E561D] font-semibold">00</span>
+              <span class="text-[9px] uppercase tracking-widest text-[#6E5D4F]">Days</span>
+            </div>
+            <div>
+              <span id="cd-hours" class="block font-editorial text-2xl text-[#7E561D] font-semibold">00</span>
+              <span class="text-[9px] uppercase tracking-widest text-[#6E5D4F]">Hours</span>
+            </div>
+            <div>
+              <span id="cd-mins" class="block font-editorial text-2xl text-[#7E561D] font-semibold">00</span>
+              <span class="text-[9px] uppercase tracking-widest text-[#6E5D4F]">Mins</span>
+            </div>
+            <div>
+              <span id="cd-secs" class="block font-editorial text-2xl text-[#7E561D] font-semibold">00</span>
+              <span class="text-[9px] uppercase tracking-widest text-[#6E5D4F]">Secs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sunlit Ocean Waves -->
+        <div class="relative z-10 w-screen -mx-6">
+          <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+               viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+              <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+              <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(184, 138, 68, 0.22)" />
+              <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(239, 227, 200, 0.55)" />
+              <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(250, 247, 242, 0.8)" />
+              <use xlink:href="#gentle-wave" x="48" y="7" fill="#FAF7F2" />
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ==================== 2. EDITORIAL QUOTE ==================== -->
+      <section class="relative z-10 py-14 px-6 text-center">
+        <div class="glass-pearl-card rounded-3xl py-9 px-6" data-aos="fade-up">
+          <i data-lucide="sparkles" class="w-5 h-5 text-[#B88A44] mx-auto mb-4"></i>
+          <p class="font-serif-soft italic text-2xl text-[#2C221A] leading-relaxed mb-4">
+            “Beside the gentle rhythm of golden waves and beneath a bright coastal sky, two souls become one.”
+          </p>
+          <p class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold uppercase">
+            1 Corinthians 13 : 4–7
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================== 3. COUPLE PROFILE ==================== -->
+      <section id="sec-couple" class="relative z-10 py-10 px-6">
+        <div class="text-center mb-10" data-aos="fade-up">
+          <p class="font-royal text-[10px] tracking-[0.3em] text-[#7E561D] font-semibold uppercase mb-1">The Groom &amp; The Bride</p>
+          <h2 class="font-editorial text-3xl text-[#2C221A]">The Happy Couple</h2>
+        </div>
+
+        <div class="space-y-10">
+          <!-- Groom -->
+          <div class="glass-pearl-card rounded-3xl p-7 text-center" data-aos="fade-up">
+            <div class="animate-float w-44 h-60 mx-auto mb-5 rounded-t-full rounded-b-2xl overflow-hidden border-2 border-[#B88A44] p-1 bg-white shadow-lg">
+              <img src="https://lh3.googleusercontent.com/d/1JvyLT3v_yIJnKeSzH5kDYK3nPO1Dw5R0=w800"
+                   alt="Ronald Jeremy Marten" class="w-full h-full object-cover rounded-t-full rounded-b-xl">
+            </div>
+            <span class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold uppercase">The Groom</span>
+            <h3 class="font-editorial text-2xl font-semibold text-[#2C221A] mt-1 mb-2">
+              Ronald Jeremy Marten DIT BIT
+            </h3>
+            <p class="font-serif-soft italic text-base text-[#6E5D4F]">First Son of</p>
+            <p class="text-xs font-medium text-[#2C221A] mt-0.5 mb-4">
+              Martono (the late) &amp; Lindawati Putri Widharta
+            </p>
+            <a href="https://instagram.com/ronaldjeremy" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#7E561D] border border-[#B88A44]/60 px-4 py-1.5 rounded-full hover:bg-[#B88A44] hover:text-white transition">
+              <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+              <span>@ronaldjeremy</span>
+            </a>
+          </div>
+
+          <!-- Bride -->
+          <div class="glass-pearl-card rounded-3xl p-7 text-center" data-aos="fade-up" data-aos-delay="120">
+            <div class="animate-float w-44 h-60 mx-auto mb-5 rounded-t-full rounded-b-2xl overflow-hidden border-2 border-[#B88A44] p-1 bg-white shadow-lg" style="animation-delay: 1.5s;">
+              <img src="https://lh3.googleusercontent.com/d/1t2vCjUMHLBGEjO6u6gc2VX3SVSvAfs27=w800"
+                   alt="Erika Tasya Wijaya" class="w-full h-full object-cover rounded-t-full rounded-b-xl">
+            </div>
+            <span class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold uppercase">The Bride</span>
+            <h3 class="font-editorial text-2xl font-semibold text-[#2C221A] mt-1 mb-2">
+              Erika Tasya Wijaya
+            </h3>
+            <p class="font-serif-soft italic text-base text-[#6E5D4F]">First Daughter of</p>
+            <p class="text-xs font-medium text-[#2C221A] mt-0.5 mb-4">
+              Widjaja Han &amp; Yosy Caroline
+            </p>
+            <a href="https://instagram.com/erikatsyaxi" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#7E561D] border border-[#B88A44]/60 px-4 py-1.5 rounded-full hover:bg-[#B88A44] hover:text-white transition">
+              <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+              <span>@erikatsyaxi</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. INTERACTIVE LOVE STORY SLIDER ==================== -->
+      <section class="relative z-10 py-12 px-6">
+        <div class="glass-pearl-card rounded-3xl p-7" data-aos="fade-up">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <p class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold uppercase">Our Story</p>
+              <h3 class="font-editorial text-2xl text-[#2C221A]">Journey of Love</h3>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="changeStory(-1)" class="w-8 h-8 rounded-full border border-[#B88A44]/50 text-[#7E561D] flex items-center justify-center hover:bg-[#B88A44]/10 cursor-pointer transition">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="changeStory(1)" class="w-8 h-8 rounded-full border border-[#B88A44]/50 text-[#7E561D] flex items-center justify-center hover:bg-[#B88A44]/10 cursor-pointer transition">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="story-container" class="transition-all duration-300">
+            <div class="aspect-[16/10] rounded-2xl overflow-hidden mb-4 border border-[#B88A44]/30 shadow-sm">
+              <img id="story-img" src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1000"
+                   alt="Story" class="w-full h-full object-cover">
+            </div>
+            <span id="story-year" class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold">CHAPTER I &bull; FIRST MEET</span>
+            <h4 id="story-title" class="font-serif-soft text-2xl font-semibold text-[#2C221A] mt-0.5 mb-2">Where It All Began</h4>
+            <p id="story-desc" class="text-xs text-[#6E5D4F] leading-relaxed">
+              A simple meeting filled with endless laughter, heartfelt conversations, and the quiet certainty that our journey was meant to be shared together.
+            </p>
+          </div>
+
+          <div class="flex justify-center gap-1.5 mt-5" id="story-dots"></div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. WEDDING EVENTS & DRESSCODE ==================== -->
+      <section id="sec-event" class="relative z-10 py-12 px-6">
+        <div class="text-center mb-8" data-aos="fade-up">
+          <p class="font-royal text-[10px] tracking-[0.3em] text-[#7E561D] font-semibold uppercase mb-1">Save The Date</p>
+          <h2 class="font-editorial text-3xl text-[#2C221A]">Wedding Events</h2>
+        </div>
+
+        <div class="space-y-5">
+          <!-- Event 1 -->
+          <div class="glass-pearl-card rounded-3xl p-7 text-center" data-aos="fade-up">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-[#EFE3C8]/70 border border-[#B88A44]/40 font-royal text-[10px] tracking-widest text-[#7E561D] font-semibold uppercase mb-3">
+              Ceremony
+            </span>
+            <h3 class="font-editorial text-2xl text-[#2C221A] mb-1">Holy Matrimony</h3>
+            <p class="font-serif-soft italic text-base text-[#6E5D4F] mb-4">Oceanfront White Pavilion</p>
+            <p class="text-xs font-semibold text-[#2C221A]">Saturday, 26 February 2028</p>
+            <p class="text-xs text-[#7E561D] font-semibold mt-0.5 mb-4">03:30 PM – 05:00 PM WITA</p>
+            <p class="text-xs text-[#6E5D4F] leading-relaxed mb-5">
+              <strong class="text-[#2C221A]">The Cliffside Beachfront Pavilion</strong><br>
+              Jl. Raya Uluwatu Pantai Selatan, Bali
+            </p>
+            <a href="https://maps.google.com/?q=Uluwatu+Bali" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 bg-gradient-to-r from-[#B88A44] to-[#CFA25A] text-white font-royal font-bold text-[10px] tracking-widest uppercase px-5 py-2.5 rounded-full hover:brightness-105 shadow-md transition">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+              <span>Google Maps</span>
+            </a>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="glass-pearl-card rounded-3xl p-7 text-center" data-aos="fade-up">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-[#EFE3C8]/70 border border-[#B88A44]/40 font-royal text-[10px] tracking-widest text-[#7E561D] font-semibold uppercase mb-3">
+              Reception
+            </span>
+            <h3 class="font-editorial text-2xl text-[#2C221A] mb-1">Golden Sunset Gala</h3>
+            <p class="font-serif-soft italic text-base text-[#6E5D4F] mb-4">Under a Canopy of Warm Lights</p>
+            <p class="text-xs font-semibold text-[#2C221A]">Saturday, 26 February 2028</p>
+            <p class="text-xs text-[#7E561D] font-semibold mt-0.5 mb-4">06:30 PM – 09:30 PM WITA</p>
+            <p class="text-xs text-[#6E5D4F] leading-relaxed mb-5">
+              <strong class="text-[#2C221A]">Grand Beachfront Glasshouse &amp; Garden</strong><br>
+              Jl. Raya Uluwatu Pantai Selatan, Bali
+            </p>
+            <a href="https://maps.google.com/?q=Uluwatu+Bali" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 bg-gradient-to-r from-[#B88A44] to-[#CFA25A] text-white font-royal font-bold text-[10px] tracking-widest uppercase px-5 py-2.5 rounded-full hover:brightness-105 shadow-md transition">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+              <span>Google Maps</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Dresscode Swatches -->
+        <div class="mt-6 glass-pearl-card rounded-3xl p-6 text-center" data-aos="fade-up">
+          <p class="font-royal text-[10px] tracking-[0.25em] text-[#7E561D] font-semibold uppercase mb-1">Attire Guide</p>
+          <h4 class="font-editorial text-xl text-[#2C221A] mb-3">Coastal Formal Dress Code</h4>
+          <div class="flex justify-center items-center gap-3 my-3">
+            <span class="w-8 h-8 rounded-full bg-[#FFFFFF] border border-[#B88A44]/40 shadow-sm"></span>
+            <span class="w-8 h-8 rounded-full bg-[#EFE3C8] border border-[#B88A44]/50 shadow-sm"></span>
+            <span class="w-8 h-8 rounded-full bg-[#D7B98E] border border-[#B88A44]/50 shadow-sm"></span>
+            <span class="w-8 h-8 rounded-full bg-[#B88A44] shadow-sm"></span>
+          </div>
+          <p class="text-[11px] text-[#6E5D4F]">Pearl White &bull; Soft Champagne &bull; Warm Sand &bull; Golden Amber</p>
+        </div>
+
+        <!-- Add to Calendar -->
+        <div class="text-center mt-5">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Ronald+%26+Erika&dates=20280226T073000Z/20280226T133000Z&details=Sunlit+Vows,+By+the+Sea+-+Ronald+%26+Erika+Wedding&location=Uluwatu,+Bali"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 bg-white/80 border border-[#B88A44] text-[#7E561D] hover:bg-[#B88A44] hover:text-white font-royal font-semibold text-[10px] tracking-widest uppercase px-6 py-3 rounded-full shadow-sm transition">
+            <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
+            <span>Add to Google Calendar</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ==================== 6. MOBILE-FRIENDLY WEDDING FILM & MULTI-PAGE GALLERY ==================== -->
+      <section id="sec-gallery" class="relative z-10 py-12 px-6">
+        <div class="text-center mb-7" data-aos="fade-up">
+          <p class="font-royal text-[10px] tracking-[0.3em] text-[#7E561D] font-semibold uppercase mb-1">Captured Memories</p>
+          <h2 class="font-editorial text-3xl text-[#2C221A]">Wedding Film &amp; Gallery</h2>
+        </div>
+
+        <!-- Mobile-Friendly Wedding Film Launcher Card (Avoids Mobile Iframe Trap) -->
+        <div class="mb-8 rounded-3xl overflow-hidden border-2 border-[#B88A44]/40 bg-white shadow-lg" data-aos="zoom-in">
+          <div class="relative aspect-video w-full overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1200"
+                 alt="Pre-Wedding Film Cover"
+                 class="w-full h-full object-cover animate-ken-burns">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#2C221A]/80 via-[#2C221A]/25 to-transparent flex flex-col items-center justify-center p-4 text-center">
+              <button onclick="openVideoModal()"
+                      aria-label="Play Pre-Wedding Film"
+                      class="btn-pulse-gold w-14 h-14 rounded-full bg-white/95 text-[#7E561D] flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition cursor-pointer mb-2">
+                <i data-lucide="play" class="w-6 h-6 fill-[#7E561D] ml-0.5"></i>
+              </button>
+              <span class="font-royal text-[10px] tracking-[0.25em] text-amber-100 uppercase font-semibold">
+                Tap to Watch Pre-Wedding Film
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3 bg-white flex items-center justify-between text-[11px] text-[#6E5D4F]">
+            <span class="font-serif-soft italic text-base text-[#2C221A] font-semibold">Our Story in Motion</span>
+            <a href="https://drive.google.com/file/d/15B_ecqTK8YnHPs2Wn6rJ3o34Qt7CpnJH/view?usp=sharing"
+               target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-1 text-[10px] font-royal font-semibold uppercase tracking-wider text-[#7E561D] hover:underline">
+              <span>Drive</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Multi-Page Gallery Navigation Tabs -->
+        <div class="flex items-center justify-center gap-1.5 bg-white/85 border border-[#B88A44]/30 p-1.5 rounded-2xl mb-6 shadow-xs" data-aos="fade-up">
+          <button onclick="switchGalleryPage(1)" id="tab-g-1"
+                  class="gallery-tab flex-1 py-2 px-2.5 rounded-xl font-royal text-[10px] tracking-wider uppercase font-bold bg-[#B88A44] text-white shadow-xs transition cursor-pointer">
+            Page 1 &bull; Arch
+          </button>
+          <button onclick="switchGalleryPage(2)" id="tab-g-2"
+                  class="gallery-tab flex-1 py-2 px-2.5 rounded-xl font-royal text-[10px] tracking-wider uppercase font-semibold text-[#6E5D4F] hover:text-[#7E561D] transition cursor-pointer">
+            Page 2 &bull; Polaroid
+          </button>
+          <button onclick="switchGalleryPage(3)" id="tab-g-3"
+                  class="gallery-tab flex-1 py-2 px-2.5 rounded-xl font-royal text-[10px] tracking-wider uppercase font-semibold text-[#6E5D4F] hover:text-[#7E561D] transition cursor-pointer">
+            Page 3 &bull; Slides
+          </button>
+        </div>
+
+        <!-- ==================== GALLERY PAGE 1: EDITORIAL ARCH & STAGGERED FRAMES ==================== -->
+        <div id="gallery-page-1" class="gallery-page-panel gallery-page-enter space-y-4">
+          <div class="grid grid-cols-2 gap-3.5 items-start">
+            <!-- Arch Frame Left -->
+            <div onclick="openLightbox(this.querySelector('img').src)"
+                 class="cursor-pointer rounded-t-full rounded-b-3xl overflow-hidden border-2 border-[#B88A44]/40 bg-white p-1.5 shadow-md group">
+              <div class="aspect-[3/4.6] rounded-t-full rounded-b-2xl overflow-hidden">
+                <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1000"
+                     alt="Arch Portrait 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              </div>
+            </div>
+
+            <!-- Staggered Right Column -->
+            <div class="space-y-3.5 pt-6">
+              <div onclick="openLightbox(this.querySelector('img').src)"
+                   class="cursor-pointer rounded-3xl overflow-hidden border border-[#B88A44]/35 bg-white p-1.5 shadow-md group">
+                <div class="aspect-square rounded-2xl overflow-hidden">
+                  <img src="https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1000"
+                       alt="Editorial 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+              </div>
+              <div onclick="openLightbox(this.querySelector('img').src)"
+                   class="cursor-pointer rounded-3xl overflow-hidden border border-[#B88A44]/35 bg-white p-1.5 shadow-md group">
+                <div class="aspect-[4/5] rounded-2xl overflow-hidden">
+                  <img src="https://lh3.googleusercontent.com/d/1JvyLT3v_yIJnKeSzH5kDYK3nPO1Dw5R0=w1000"
+                       alt="Editorial 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wide Panoramic Feature Frame -->
+          <div onclick="openLightbox(this.querySelector('img').src)"
+               class="cursor-pointer rounded-3xl overflow-hidden border border-[#B88A44]/40 bg-white p-1.5 shadow-md group">
+            <div class="aspect-[16/10] rounded-2xl overflow-hidden relative">
+              <img src="https://lh3.googleusercontent.com/d/1t2vCjUMHLBGEjO6u6gc2VX3SVSvAfs27=w1200"
+                   alt="Panoramic Moment" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute bottom-3 left-3 bg-white/85 backdrop-blur-xs px-3 py-1 rounded-full">
+                <span class="font-serif-soft italic text-sm text-[#2C221A]">Sunlit Moments Together</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== GALLERY PAGE 2: TILTED POLAROID MEMORIES ==================== -->
+        <div id="gallery-page-2" class="gallery-page-panel hidden space-y-5">
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div onclick="openLightbox(this.querySelector('img').src)"
+                 class="polaroid-card -rotate-2 cursor-pointer">
+              <div class="aspect-[3/4] rounded-lg overflow-hidden mb-2">
+                <img src="https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1000"
+                     alt="Polaroid 1" class="w-full h-full object-cover">
+              </div>
+              <p class="font-serif-soft italic text-center text-sm text-[#4A3B2C]">Golden Afternoon</p>
+            </div>
+
+            <div onclick="openLightbox(this.querySelector('img').src)"
+                 class="polaroid-card rotate-2 mt-5 cursor-pointer">
+              <div class="aspect-[3/4] rounded-lg overflow-hidden mb-2">
+                <img src="https://lh3.googleusercontent.com/d/1JvyLT3v_yIJnKeSzH5kDYK3nPO1Dw5R0=w1000"
+                     alt="Polaroid 2" class="w-full h-full object-cover">
+              </div>
+              <p class="font-serif-soft italic text-center text-sm text-[#4A3B2C]">Side by Side</p>
+            </div>
+
+            <div onclick="openLightbox(this.querySelector('img').src)"
+                 class="polaroid-card rotate-1 cursor-pointer">
+              <div class="aspect-[3/4] rounded-lg overflow-hidden mb-2">
+                <img src="https://lh3.googleusercontent.com/d/1t2vCjUMHLBGEjO6u6gc2VX3SVSvAfs27=w1000"
+                     alt="Polaroid 3" class="w-full h-full object-cover">
+              </div>
+              <p class="font-serif-soft italic text-center text-sm text-[#4A3B2C]">Warm Smiles</p>
+            </div>
+
+            <div onclick="openLightbox(this.querySelector('img').src)"
+                 class="polaroid-card -rotate-2 mt-5 cursor-pointer">
+              <div class="aspect-[3/4] rounded-lg overflow-hidden mb-2">
+                <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1000"
+                     alt="Polaroid 4" class="w-full h-full object-cover">
+              </div>
+              <p class="font-serif-soft italic text-center text-sm text-[#4A3B2C]">Our Forever</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== GALLERY PAGE 3: AUTO-SLIDE CINEMATIC SHOWCASE ==================== -->
+        <div id="gallery-page-3" class="gallery-page-panel hidden">
+          <div id="auto-slider-wrapper"
+               class="relative rounded-3xl overflow-hidden border-2 border-[#B88A44]/45 shadow-xl bg-white aspect-[4/5]">
+            <div id="auto-slides-track" class="relative w-full h-full">
+              <div class="auto-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100">
+                <img src="https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1200"
+                     alt="Slide 1" class="w-full h-full object-cover animate-ken-burns">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2C221A]/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white text-left">
+                  <span class="font-royal text-[9px] tracking-[0.28em] text-[#EFE3C8] uppercase">Frame 01</span>
+                  <h4 class="font-serif-soft italic text-2xl">Two Hearts, One Horizon</h4>
+                </div>
+              </div>
+
+              <div class="auto-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 pointer-events-none">
+                <img src="https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1200"
+                     alt="Slide 2" class="w-full h-full object-cover animate-ken-burns">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2C221A]/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white text-left">
+                  <span class="font-royal text-[9px] tracking-[0.28em] text-[#EFE3C8] uppercase">Frame 02</span>
+                  <h4 class="font-serif-soft italic text-2xl">Golden Light &amp; Laughter</h4>
+                </div>
+              </div>
+
+              <div class="auto-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 pointer-events-none">
+                <img src="https://lh3.googleusercontent.com/d/1JvyLT3v_yIJnKeSzH5kDYK3nPO1Dw5R0=w1200"
+                     alt="Slide 3" class="w-full h-full object-cover animate-ken-burns">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2C221A]/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white text-left">
+                  <span class="font-royal text-[9px] tracking-[0.28em] text-[#EFE3C8] uppercase">Frame 03</span>
+                  <h4 class="font-serif-soft italic text-2xl">Walking Hand in Hand</h4>
+                </div>
+              </div>
+
+              <div class="auto-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 pointer-events-none">
+                <img src="https://lh3.googleusercontent.com/d/1t2vCjUMHLBGEjO6u6gc2VX3SVSvAfs27=w1200"
+                     alt="Slide 4" class="w-full h-full object-cover animate-ken-burns">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2C221A]/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white text-left">
+                  <span class="font-royal text-[9px] tracking-[0.28em] text-[#EFE3C8] uppercase">Frame 04</span>
+                  <h4 class="font-serif-soft italic text-2xl">Forever Begins 26.02.2028</h4>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="moveAutoSlide(-1)" aria-label="Previous Slide"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/85 backdrop-blur-md text-[#7E561D] flex items-center justify-center shadow-md hover:bg-white transition cursor-pointer">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button onclick="moveAutoSlide(1)" aria-label="Next Slide"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/85 backdrop-blur-md text-[#7E561D] flex items-center justify-center shadow-md hover:bg-white transition cursor-pointer">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+
+            <div id="auto-slide-dots" class="absolute bottom-3 right-6 z-20 flex items-center gap-1.5"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Page Pager Controls -->
+        <div class="flex items-center justify-between mt-5 px-1">
+          <button onclick="stepGalleryPage(-1)"
+                  class="inline-flex items-center gap-1.5 text-[10px] font-royal font-semibold uppercase tracking-wider text-[#7E561D] bg-white/85 border border-[#B88A44]/35 px-3.5 py-2 rounded-full hover:bg-white transition cursor-pointer">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            <span>Prev Page</span>
+          </button>
+          <span id="gallery-page-indicator" class="font-royal text-[10px] tracking-widest uppercase text-[#6E5D4F] font-semibold">
+            Page 1 of 3
+          </span>
+          <button onclick="stepGalleryPage(1)"
+                  class="inline-flex items-center gap-1.5 text-[10px] font-royal font-semibold uppercase tracking-wider text-[#7E561D] bg-white/85 border border-[#B88A44]/35 px-3.5 py-2 rounded-full hover:bg-white transition cursor-pointer">
+            <span>Next Page</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== 7. WEDDING GIFT ==================== -->
+      <section class="relative z-10 py-10 px-6">
+        <div class="glass-pearl-card rounded-3xl p-7 text-center" data-aos="fade-up">
+          <i data-lucide="gift" class="w-7 h-7 text-[#B88A44] mx-auto mb-3"></i>
+          <h3 class="font-editorial text-2xl text-[#2C221A] mb-2">Wedding Gift</h3>
+          <p class="text-xs text-[#6E5D4F] leading-relaxed mb-5">
+            Your presence and prayers are the greatest gifts we could ask for. However, should you wish to honor us with a token of love, you may send it digitally below.
+          </p>
+          <button onclick="openGiftSheet()"
+                  class="inline-flex items-center gap-2 bg-gradient-to-r from-[#B88A44] to-[#CFA25A] text-white font-royal font-bold text-[11px] tracking-widest uppercase px-6 py-3 rounded-full hover:brightness-105 shadow-md transition cursor-pointer">
+            <i data-lucide="credit-card" class="w-4 h-4"></i>
+            <span>Send a Wedding Gift</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== 8. RSVP & GUESTBOOK ==================== -->
+      <section id="sec-rsvp" class="relative z-10 py-12 px-6 pb-28">
+        <div class="text-center mb-7" data-aos="fade-up">
+          <p class="font-royal text-[10px] tracking-[0.3em] text-[#7E561D] font-semibold uppercase mb-1">Confirmation &amp; Wishes</p>
+          <h2 class="font-editorial text-3xl text-[#2C221A]">RSVP &amp; Wishes</h2>
+        </div>
+
+        <form id="wish-form" class="glass-pearl-card rounded-3xl p-6 space-y-4 mb-6" data-aos="fade-up">
+          <div>
+            <label class="block text-[11px] font-medium text-[#6E5D4F] mb-1">Full Name</label>
+            <input type="text" id="sender-name" required placeholder="Your Full Name"
+                   class="w-full rounded-xl border border-[#B88A44]/40 bg-white/90 text-[#2C221A] placeholder-stone-400 px-4 py-2.5 text-sm focus:outline-none focus:border-[#B88A44]">
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-medium text-[#6E5D4F] mb-1">Attendance</label>
+              <select id="attendance" class="w-full rounded-xl border border-[#B88A44]/40 bg-white/90 text-[#2C221A] px-3 py-2.5 text-xs focus:outline-none focus:border-[#B88A44]">
+                <option value="Attending">Joyfully Attending</option>
+                <option value="Unable to Attend">Regretfully Decline</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-[#6E5D4F] mb-1">Number of Guests</label>
+              <select id="guest-pax" class="w-full rounded-xl border border-[#B88A44]/40 bg-white/90 text-[#2C221A] px-3 py-2.5 text-xs focus:outline-none focus:border-[#B88A44]">
+                <option value="1 Guest">1 Guest</option>
+                <option value="2 Guests">2 Guests</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-[#6E5D4F] mb-1">Prayers &amp; Wishes</label>
+            <textarea id="wish-message" rows="3" required placeholder="Write your warm wishes for Ronald & Erika..."
+                      class="w-full rounded-xl border border-[#B88A44]/40 bg-white/90 text-[#2C221A] placeholder-stone-400 px-4 py-2.5 text-sm focus:outline-none focus:border-[#B88A44]"></textarea>
+          </div>
+          <button type="submit" id="submit-btn"
+                  class="w-full bg-gradient-to-r from-[#B88A44] to-[#CFA25A] hover:brightness-105 text-white font-royal font-bold text-xs tracking-[0.2em] uppercase py-3.5 rounded-xl shadow-md transition cursor-pointer flex items-center justify-center gap-2">
+            <span>Send Wishes</span>
+          </button>
+          <p id="form-status" class="hidden text-center text-xs font-medium text-[#7E561D]"></p>
+        </form>
+
+        <!-- Live Wishes List -->
+        <div class="flex items-center justify-between mb-3 px-1">
+          <span class="font-royal text-[10px] tracking-widest uppercase text-[#7E561D] font-semibold">Guestbook Wishes</span>
+          <span id="wishes-count" class="text-[11px] text-[#6E5D4F]">1 Wish</span>
+        </div>
+
+        <div id="wishes-list" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+          <div class="glass-pearl-card rounded-2xl p-4">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-semibold text-xs text-[#2C221A]">Alexander Wijaya</span>
+              <span class="text-[10px] bg-[#EFE3C8]/80 border border-[#B88A44]/40 text-[#7E561D] font-medium px-2.5 py-0.5 rounded-full">Attending &bull; 2 Guests</span>
+            </div>
+            <p class="text-xs text-[#6E5D4F] leading-relaxed">Congratulations on your wedding, Ronald &amp; Erika! Wishing you a lifetime of love, joy, and happiness together.</p>
+          </div>
+        </div>
+
+        <footer class="text-center pt-12 text-[#6E5D4F]">
+          <p class="couple-name-script text-4xl text-[#7E561D] mb-1">Ronald &amp; Erika</p>
+          <p class="font-royal text-[9px] tracking-[0.3em] uppercase text-[#7E561D] font-semibold">
+            Sunlit Vows, By the Sea &bull; 26.02.2028
+          </p>
+        </footer>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ==================== VIDEO FILM MODAL (MOBILE-FRIENDLY PLAYER) ==================== -->
+  <div id="video-modal" class="hidden fixed inset-0 z-50 bg-stone-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4" onclick="closeVideoModal(event)">
+    <div class="w-full max-w-md bg-[#FAF7F2] rounded-3xl overflow-hidden border border-[#B88A44]/50 shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#B88A44]/20">
+        <span class="font-royal text-[10px] tracking-widest uppercase text-[#7E561D] font-bold">Pre-Wedding Film</span>
+        <button onclick="forceCloseVideoModal()" class="p-1.5 rounded-full bg-[#EFE3C8]/80 text-[#7E561D] cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="video-player-container" class="aspect-video w-full bg-black"></div>
+      <div class="p-4 text-center">
+        <a href="https://drive.google.com/file/d/15B_ecqTK8YnHPs2Wn6rJ3o34Qt7CpnJH/view?usp=sharing"
+           target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#7E561D] underline">
+          <span>Open directly in Google Drive if playback is restricted on your device</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BOTTOM SHEET MODAL: WEDDING GIFT ==================== -->
+  <div id="gift-sheet" class="hidden-sheet fixed inset-0 z-50 bg-stone-900/45 backdrop-blur-xs flex items-end justify-center lg:justify-end" onclick="closeGiftSheet(event)">
+    <div id="gift-sheet-panel" class="w-full lg:w-[460px] xl:w-[480px] bg-[#FAF7F2] text-[#2C221A] rounded-t-3xl p-7 shadow-2xl border-t border-[#B88A44]" onclick="event.stopPropagation()">
+      <div class="w-12 h-1 bg-[#B88A44]/30 rounded-full mx-auto mb-5"></div>
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-editorial text-2xl text-[#2C221A]">Digital Envelope</h3>
+        <button onclick="forceCloseGiftSheet()" class="p-1.5 rounded-full bg-[#EFE3C8]/70 text-[#7E561D] cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5">
+        <div class="bg-white border border-[#B88A44]/35 text-[#2C221A] rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-royal text-xs tracking-widest text-[#7E561D] font-bold">BANK BCA</span>
+            <i data-lucide="credit-card" class="w-4 h-4 text-[#B88A44]"></i>
+          </div>
+          <p class="font-mono text-lg tracking-widest mb-0.5 text-[#2C221A]">1234567890</p>
+          <p class="text-[11px] text-[#6E5D4F] mb-3">a.n. Ronald Jeremy Marten</p>
+          <button onclick="copyText('1234567890', this)"
+                  class="inline-flex items-center gap-1.5 bg-[#B88A44] text-white text-[11px] font-semibold px-4 py-1.5 rounded-full cursor-pointer hover:brightness-105 transition">
+            <i data-lucide="copy" class="w-3 h-3"></i>
+            <span>Copy Account Number</span>
+          </button>
+        </div>
+
+        <div class="bg-white border border-[#B88A44]/35 text-[#2C221A] rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-royal text-xs tracking-widest text-[#7E561D] font-bold">BANK BCA</span>
+            <i data-lucide="credit-card" class="w-4 h-4 text-[#B88A44]"></i>
+          </div>
+          <p class="font-mono text-lg tracking-widest mb-0.5 text-[#2C221A]">0987654321</p>
+          <p class="text-[11px] text-[#6E5D4F] mb-3">a.n. Erika Tasya Wijaya</p>
+          <button onclick="copyText('0987654321', this)"
+                  class="inline-flex items-center gap-1.5 bg-[#B88A44] text-white text-[11px] font-semibold px-4 py-1.5 rounded-full cursor-pointer hover:brightness-105 transition">
+            <i data-lucide="copy" class="w-3 h-3"></i>
+            <span>Copy Account Number</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LIGHTBOX MODAL ==================== -->
+  <div id="lightbox" class="hidden fixed inset-0 z-50 bg-stone-950/85 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeLightbox()">
+    <button class="absolute top-5 right-5 text-white bg-white/15 p-2 rounded-full">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Preview" class="max-h-[85vh] max-w-full rounded-2xl border border-[#DFC38D]/60 shadow-2xl">
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    const GOOGLE_SCRIPT_URL = 'PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_DI_SINI';
+    const DRIVE_VIDEO_PREVIEW_URL = 'https://drive.google.com/file/d/15B_ecqTK8YnHPs2Wn6rJ3o34Qt7CpnJH/preview';
+
+    lucide.createIcons();
+    AOS.init({ once: true, offset: 40, duration: 900, easing: 'ease-out-cubic' });
+
+    gsap.from('.gs-cover-item', {
+      y: 24,
+      opacity: 0,
+      duration: 1.05,
+      stagger: 0.18,
+      ease: 'power3.out'
+    });
+
+    // Sunlit Golden Dust & Floating Petals
+    function initSunlitSparkleCanvas(canvasId, particleCount = 28) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const particles = [];
+
+      function resize() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 2.3 + 0.8,
+          alpha: Math.random() * 0.65 + 0.15,
+          speedAlpha: (Math.random() * 0.012 + 0.004) * (Math.random() < 0.5 ? 1 : -1),
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: -(Math.random() * 0.28 + 0.08),
+          isPetal: i % 5 === 0
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach(p => {
+          p.alpha += p.speedAlpha;
+          if (p.alpha >= 0.85 || p.alpha <= 0.15) p.speedAlpha *= -1;
+          p.x += p.vx + Math.sin(p.y * 0.015) * 0.15;
+          p.y += p.vy;
+
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          if (p.isPetal) {
+            ctx.rotate(p.y * 0.02);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, p.r * 1.8, p.r * 0.9, 0, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(223, 195, 141, ${p.alpha * 0.7})`;
+            ctx.fill();
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(184, 138, 68, ${p.alpha})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = 'rgba(212, 175, 106, 0.6)';
+            ctx.fill();
+          }
+          ctx.restore();
+        });
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    initSunlitSparkleCanvas('desktop-sparkle-canvas', 36);
+    initSunlitSparkleCanvas('cover-sparkle-canvas', 26);
+    initSunlitSparkleCanvas('hero-sparkle-canvas', 28);
+    initSunlitSparkleCanvas('ambient-sparkle-canvas', 18);
+
+    // Guest Name from URL (?to=Guest+Name)
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get('to');
+    if (guest) {
+      const cleanName = decodeURIComponent(guest);
+      document.getElementById('guest-name').textContent = cleanName;
+      document.getElementById('sender-name').value = cleanName;
+    }
+
+    // ==================== AUDIO + SOFT PIANO SYNTH FALLBACK ====================
+    const coverOverlay = document.getElementById('cover-overlay');
+    const btnOpen = document.getElementById('btn-open');
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const floatingNav = document.getElementById('floating-nav');
+    let isPlaying = false;
+    let synthInterval = null;
+    let audioCtx = null;
+
+    function startRomanticPianoFallback() {
+      if (synthInterval) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      audioCtx = new AudioContext();
+      const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 493.88, 392.00, 329.63,
+                     220.00, 261.63, 329.63, 392.00, 440.00, 392.00, 329.63, 261.63];
+      let step = 0;
+
+      function playNote() {
+        if (!isPlaying || !audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(notes[step % notes.length], now);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.06, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 1.85);
+        step++;
+      }
+
+      playNote();
+      synthInterval = setInterval(playNote, 650);
+    }
+
+    function stopRomanticPianoFallback() {
+      if (synthInterval) {
+        clearInterval(synthInterval);
+        synthInterval = null;
+      }
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    btnOpen.addEventListener('click', () => {
+      coverOverlay.classList.add('is-opened');
+      document.body.style.overflow = 'auto';
+      musicBtn.classList.remove('hidden');
+      floatingNav.classList.remove('hidden');
+
+      setTimeout(() => AOS.refresh(), 500);
+
+      bgMusic.volume = 0.55;
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlaying = true;
+          musicIcon.classList.remove('paused-disc');
+        }).catch(() => {
+          isPlaying = true;
+          musicIcon.classList.remove('paused-disc');
+          startRomanticPianoFallback();
+        });
+      }
+    });
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        stopRomanticPianoFallback();
+        musicIcon.classList.add('paused-disc');
+        isPlaying = false;
+      } else {
+        isPlaying = true;
+        musicIcon.classList.remove('paused-disc');
+        bgMusic.play().catch(() => {
+          startRomanticPianoFallback();
+        });
+      }
+    });
+
+    // ==================== MULTI-PAGE GALLERY LOGIC ====================
+    let activeGalleryPage = 1;
+    const totalGalleryPages = 3;
+
+    function switchGalleryPage(pageNum) {
+      activeGalleryPage = ((pageNum - 1 + totalGalleryPages) % totalGalleryPages) + 1;
+
+      for (let i = 1; i <= totalGalleryPages; i++) {
+        const panel = document.getElementById(`gallery-page-${i}`);
+        const tab = document.getElementById(`tab-g-${i}`);
+        if (i === activeGalleryPage) {
+          panel.classList.remove('hidden');
+          panel.classList.remove('gallery-page-enter');
+          void panel.offsetWidth;
+          panel.classList.add('gallery-page-enter');
+
+          tab.classList.add('bg-[#B88A44]', 'text-white', 'font-bold', 'shadow-xs');
+          tab.classList.remove('text-[#6E5D4F]', 'font-semibold');
+        } else {
+          panel.classList.add('hidden');
+          tab.classList.remove('bg-[#B88A44]', 'text-white', 'font-bold', 'shadow-xs');
+          tab.classList.add('text-[#6E5D4F]', 'font-semibold');
+        }
+      }
+
+      document.getElementById('gallery-page-indicator').textContent = `Page ${activeGalleryPage} of ${totalGalleryPages}`;
+    }
+
+    function stepGalleryPage(dir) {
+      switchGalleryPage(activeGalleryPage + dir);
+    }
+
+    // ==================== AUTO-SLIDE GALLERY LOGIC (PAGE 3) ====================
+    const autoSlides = document.querySelectorAll('.auto-slide');
+    const autoSlideDotsContainer = document.getElementById('auto-slide-dots');
+    const autoSliderWrapper = document.getElementById('auto-slider-wrapper');
+    let currentAutoSlide = 0;
+    let autoSlideTimer = null;
+
+    function renderAutoSlideDots() {
+      if (!autoSlideDotsContainer) return;
+      autoSlideDotsContainer.innerHTML = Array.from(autoSlides).map((_, i) => `
+        <button onclick="goToAutoSlide(${i})" aria-label="Slide ${i + 1}"
+                class="h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentAutoSlide ? 'w-6 bg-[#EFE3C8]' : 'w-1.5 bg-white/50'}"></button>
+      `).join('');
+    }
+
+    function showAutoSlide(index) {
+      currentAutoSlide = (index + autoSlides.length) % autoSlides.length;
+      autoSlides.forEach((slide, idx) => {
+        if (idx === currentAutoSlide) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+        }
+      });
+      renderAutoSlideDots();
+    }
+
+    function moveAutoSlide(step) {
+      showAutoSlide(currentAutoSlide + step);
+      restartAutoSlideTimer();
+    }
+
+    function goToAutoSlide(index) {
+      showAutoSlide(index);
+      restartAutoSlideTimer();
+    }
+
+    function startAutoSlideTimer() {
+      autoSlideTimer = setInterval(() => {
+        showAutoSlide(currentAutoSlide + 1);
+      }, 3800);
+    }
+
+    function restartAutoSlideTimer() {
+      clearInterval(autoSlideTimer);
+      startAutoSlideTimer();
+    }
+
+    if (autoSlides.length > 0) {
+      renderAutoSlideDots();
+      startAutoSlideTimer();
+      autoSliderWrapper.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+      autoSliderWrapper.addEventListener('mouseleave', () => startAutoSlideTimer());
+    }
+
+    // ==================== LOVE STORY CAROUSEL ====================
+    const stories = [
+      {
+        img: 'https://lh3.googleusercontent.com/d/170RWRiRqhLor0Fx9S7ZyU-uI472rb_uA=w1000',
+        year: 'CHAPTER I • FIRST MEET',
+        title: 'Where It All Began',
+        desc: 'A simple meeting filled with endless laughter, heartfelt conversations, and the quiet certainty that our journey was meant to be shared together.'
+      },
+      {
+        img: 'https://lh3.googleusercontent.com/d/1O4hk43C2STCHFoqdl6ou15dPy_9P016Q=w1000',
+        year: 'CHAPTER II • THE PROPOSAL',
+        title: 'A Promise Forever',
+        desc: 'Beneath the golden sunset sky and with the warm blessing of both our families, we took the next step toward a lifetime of love.'
+      },
+      {
+        img: 'https://lh3.googleusercontent.com/d/1JvyLT3v_yIJnKeSzH5kDYK3nPO1Dw5R0=w1000',
+        year: 'CHAPTER III • 26 FEBRUARY 2028',
+        title: 'Sunlit Vows, By the Sea',
+        desc: 'The day we officially begin our new chapter as husband and wife by the ocean shore, surrounded by our dearest family and friends.'
+      }
+    ];
+    let currentStory = 0;
+
+    function renderStoryDots() {
+      const dotsEl = document.getElementById('story-dots');
+      dotsEl.innerHTML = stories.map((_, idx) => `
+        <span class="h-1.5 rounded-full transition-all duration-300 ${idx === currentStory ? 'w-6 bg-[#B88A44]' : 'w-1.5 bg-[#B88A44]/25'}"></span>
+      `).join('');
+    }
+    renderStoryDots();
+
+    function changeStory(dir) {
+      const container = document.getElementById('story-container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(6px)';
+      setTimeout(() => {
+        currentStory = (currentStory + dir + stories.length) % stories.length;
+        document.getElementById('story-img').src = stories[currentStory].img;
+        document.getElementById('story-year').textContent = stories[currentStory].year;
+        document.getElementById('story-title').textContent = stories[currentStory].title;
+        document.getElementById('story-desc').textContent = stories[currentStory].desc;
+        renderStoryDots();
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 220);
+    }
+
+    // Countdown Timer -> Saturday, 26 February 2028
+    const targetDate = new Date('February 26, 2028 15:30:00').getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff <= 0) return;
+
+      document.getElementById('cd-days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Video Modal Controls
+    function openVideoModal() {
+      const container = document.getElementById('video-player-container');
+      container.innerHTML = `<iframe src="${DRIVE_VIDEO_PREVIEW_URL}" class="w-full h-full border-0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+      document.getElementById('video-modal').classList.remove('hidden');
+    }
+    function closeVideoModal(e) {
+      if (e.target.id === 'video-modal') forceCloseVideoModal();
+    }
+    function forceCloseVideoModal() {
+      document.getElementById('video-modal').classList.add('hidden');
+      document.getElementById('video-player-container').innerHTML = '';
+    }
+
+    // Gift Bottom Sheet, Lightbox & Copy
+    function openGiftSheet() { document.getElementById('gift-sheet').classList.remove('hidden-sheet'); }
+    function closeGiftSheet(e) { if (e.target.id === 'gift-sheet') forceCloseGiftSheet(); }
+    function forceCloseGiftSheet() { document.getElementById('gift-sheet').classList.add('hidden-sheet'); }
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.remove('hidden');
+    }
+    function closeLightbox() { document.getElementById('lightbox').classList.add('hidden'); }
+
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const span = btn.querySelector('span');
+        const old = span.textContent;
+        span.textContent = 'Copied!';
+        setTimeout(() => span.textContent = old, 2000);
+      });
+    }
+
+    // RSVP & Guestbook
+    const wishesList = document.getElementById('wishes-list');
+    const wishesCount = document.getElementById('wishes-count');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      }[tag]));
+    }
+
+    function createWishCard(nama, kehadiran, jumlah, ucapan) {
+      const badge = kehadiran === 'Attending' ? `${kehadiran} &bull; ${jumlah}` : kehadiran;
+      const item = document.createElement('div');
+      item.className = 'glass-pearl-card rounded-2xl p-4 transition-all duration-500';
+      item.innerHTML = `
+        <div class="flex items-center justify-between mb-1">
+          <span class="font-semibold text-xs text-[#2C221A]">${escapeHTML(nama)}</span>
+          <span class="text-[10px] bg-[#EFE3C8]/80 border border-[#B88A44]/40 text-[#7E561D] font-medium px-2.5 py-0.5 rounded-full">${badge}</span>
+        </div>
+        <p class="text-xs text-[#6E5D4F] leading-relaxed">${escapeHTML(ucapan)}</p>
+      `;
+      return item;
+    }
+
+    function updateWishCounter() {
+      const total = wishesList.children.length;
+      wishesCount.textContent = `${total} ${total === 1 ? 'Wish' : 'Wishes'}`;
+    }
+
+    async function loadWishesFromSheet() {
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('PASTE_GOOGLE')) return;
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const result = await res.json();
+        if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
+          wishesList.innerHTML = '';
+          result.data.forEach(w => {
+            wishesList.appendChild(createWishCard(w.nama, w.kehadiran, w.jumlah, w.ucapan));
+          });
+          updateWishCounter();
+        }
+      } catch (err) {
+        console.warn('Unable to load wishes from Google Sheets:', err);
+      }
+    }
+    loadWishesFromSheet();
+
+    document.getElementById('wish-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const nama = document.getElementById('sender-name').value.trim();
+      const kehadiran = document.getElementById('attendance').value;
+      const jumlah = document.getElementById('guest-pax').value;
+      const ucapan = document.getElementById('wish-message').value.trim();
+      if (!nama || !ucapan) return;
+
+      const newCard = createWishCard(nama, kehadiran, jumlah, ucapan);
+      wishesList.prepend(newCard);
+      gsap.from(newCard, { y: -15, opacity: 0, duration: 0.5, ease: 'power2.out' });
+      updateWishCounter();
+
+      confetti({
+        particleCount: 40,
+        spread: 55,
+        origin: { y: 0.7 },
+        colors: ['#B88A44', '#DFC38D', '#FFFFFF']
+      });
+
+      document.getElementById('wish-message').value = '';
+
+      if (GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('PASTE_GOOGLE')) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending...</span>';
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nama, kehadiran, jumlah, ucapan })
+          });
+          formStatus.textContent = 'Thank you! Your wishes have been posted and saved.';
+          formStatus.classList.remove('hidden');
+        } catch (err) {
+          formStatus.textContent = 'Your wishes are displayed on screen (server sync pending).';
+          formStatus.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Send Wishes</span>';
+          setTimeout(() => formStatus.classList.add('hidden'), 4000);
+        }
+      } else {
+        formStatus.textContent = 'Thank you! Your wishes are now live on the guestbook.';
+        formStatus.classList.remove('hidden');
+        setTimeout(() => formStatus.classList.add('hidden'), 4500);
+      }
+    });
+  </script>
+</body>
+</html>
